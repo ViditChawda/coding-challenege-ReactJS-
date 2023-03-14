@@ -1,17 +1,23 @@
-import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import Routes from "./Routes";
+import React from 'react'
+import ClientCard from './components/ClientCard'
+import ClientCard1 from './components/ClientCard1'
+import DropDown from './components/DropDown'
 
-const client = new ApolloClient({
-  uri: `${process.env.REACT_APP_URL}/graphql`,
-  cache: new InMemoryCache(),
-});
-
-function App() {
+const App = () => {
   return (
-    <ApolloProvider client={client}>
-        <Routes/>
-    </ApolloProvider>
-  );
+    <div>
+      <ClientCard/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <ClientCard1/>
+      <DropDown/>
+    </div>
+  )
 }
 
-export default App;
+export default App
