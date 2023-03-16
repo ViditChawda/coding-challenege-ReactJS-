@@ -2,7 +2,7 @@ import React from 'react'
 import Header from './components/Header'
 import ClientCard1 from './components/ClientCard1'
 import DropDown from './components/DropDown'
-import Modal from './components/Modal'
+import Modals from './components/Modals'
 import SideBar from './components/SideBar'
 
 const App = () => {
@@ -12,8 +12,6 @@ const App = () => {
       <div className='d-flex'>
         <div className='p-5 bg-dark'> <SideBar /> </div>
         <div className=''> <ClientCard1 /> </div>
-
-        {/* <Modal /> */}
       </div>
     </div>
 

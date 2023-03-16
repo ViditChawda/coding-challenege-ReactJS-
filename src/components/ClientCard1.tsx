@@ -20,92 +20,24 @@
 
 // export default ClientCard1
 
-import React from 'react'
+import React from 'react';
 import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button'
+import Modals from './Modals';
+import { BiDotsVerticalRounded } from 'react-icons/bi'
+import DropDown from './DropDown';
+import { Dropdown } from 'react-bootstrap';
+// import './index.css';
 
+import DATA from './DATA.js'
 
-const DATA = [
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    }, {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
-    {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    }, {
-        "Lead_Date": "May 26, 2019",
-        "Name": "Shivam Balwani",
-        "Number": "+91 987654321",
-        "Email": "dummy@gmail.com",
-        "Source": "Website",
-        "Last_Updated": "25 june 2021",
-        "Status": "New"
-    },
+const handleDelete = (id) => {
+    var index = DATA.map((e) => {
+        return e.id;
+    }).indexOf(id);
 
-]
+    DATA.splice(index,1); 
+}
 
 
 const ClientCard1 = () => {
@@ -113,6 +45,9 @@ const ClientCard1 = () => {
         <div>
             <div className='p-3 mt-0 fs-5 fw-bolder'>
                 Clients
+            </div>
+            <div className='m-5'>
+                <Modals />
             </div>
             <div className='p-5'>
                 <Table striped bordered hover>
@@ -127,21 +62,37 @@ const ClientCard1 = () => {
                             <th>Status</th>
                         </tr>
                     </thead>
-                    {DATA.map(({ Lead_Date, Name, Number, Email, Source, Last_Updated, Status }, i) => {
-                        return <>
-                            <tbody>
+                    <tbody>
+                        {DATA.map((e , i) => {
+                            return <>
+
                                 <tr>
-                                    <td>{Lead_Date}</td>
-                                    <td>{Name}</td>
-                                    <td>{Number}</td>
-                                    <td>{Email}</td>
-                                    <td>{Source}</td>
-                                    <td>{Last_Updated}</td>
-                                    <td>{Status}</td>
+                                    <td>{e.Lead_Date}</td>
+                                    <td>{e.Name}</td>
+                                    <td>{e.Number}</td>
+                                    <td>{e.Email}</td>
+                                    <td>{e.Source}</td>
+                                    <td>{e.Last_Updated}</td>
+                                    <td>{e.Status}</td>
+                                    <td>
+                                        <Dropdown>
+                                            <Dropdown.Toggle>
+                                                <BiDotsVerticalRounded />
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item onClick={()=> alert("Edit")}>Edit</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => handleDelete(e.id)}>Delete</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => alert("View")}>View</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </td>
                                 </tr>
-                            </tbody>
-                        </>
-                    })}
+
+                            </>
+                        })}
+                    </tbody>
+
                 </Table>
 
             </div>
