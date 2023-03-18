@@ -20,20 +20,53 @@
 
 // export default ClientCard1
 
-import React , {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button'
 import Modals from './Modals';
+import EditModal from "./EditModal";
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import DropDown from './DropDown';
 import { Dropdown } from 'react-bootstrap';
-
+import Modal from 'react-bootstrap/Modal';
 // import './index.css';
 
 import DATA from './DATA.js'
 
 const ClientCard1 = () => {
+
+
+    const [modalData, setModalData] = useState({
+        "id": "1",
+        "Lead_Date": "May 26, 2019",
+        "Name": "Shivam Balwani",
+        "Number": "+91 987654321",
+        "Email": "default@gmail.com",
+        "Source": "Website",
+        "Last_Updated": "25 june 2021",
+        "Status": "New"
+    });
+
+    const [updateModalData, setUpdateModalData] = useState({
+        "id": "1",
+        "Lead_Date": "May 26, 2019",
+        "Name": "Shivam Balwani",
+        "Number": "+91 987654321",
+        "Email": "default@gmail.com",
+        "Source": "Website",
+        "Last_Updated": "25 june 2021",
+        "Status": "New"
+    })
+    const [showUpdateModal, setShowUpdateModal] = useState(false);
+    const handleCloseUpdateModal = () => {
+        setShowUpdateModal(false);
+    }
     const [data, setData] = useState<any>(DATA)
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
 
     useEffect(() => {
         const localData = localStorage.userData;
@@ -47,7 +80,7 @@ const ClientCard1 = () => {
         localStorage.userData = JSON.stringify(passedData)
         setData(passedData)
     }
-    
+
     const handleAdd = (clientData: any) => {
         const newData = [
             ...data,
@@ -62,12 +95,22 @@ const ClientCard1 = () => {
         syncData(newData)
     }
 
-    const handleEdit = (id: string, editedData: any) => {
+    const handleView = (id: number) => {
+        const newData = data.filter(e => e.id == id);
+        setModalData(newData[0]);
+        handleShow();
+    }
+    const handleUpdate = (id: number) => {
+        const newData = data.filter(e => e.id == id);
+        setUpdateModalData(newData[0])
+        setShowUpdateModal(true);
+    }
+    const updateFields = (id: string, formData: any) => {
         const newData = data.map(userData => {
             if (userData.id === id) {
                 return {
                     ...userData,
-                    ...editedData,
+                    ...formData,
                 }
             }
 
@@ -92,6 +135,7 @@ const ClientCard1 = () => {
             </div>
             <div className='m-5'>
                 <Modals handleAdd={handleAdd} />
+                <EditModal handleUpdate={updateFields} fieldData={updateModalData} handleClose={handleCloseUpdateModal} show={showUpdateModal} />
             </div>
             <div className='p-5'>
                 <Table striped bordered hover>
@@ -107,7 +151,7 @@ const ClientCard1 = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((e , i) => {
+                        {data.map((e, i) => {
                             return <>
 
                                 <tr>
@@ -125,9 +169,9 @@ const ClientCard1 = () => {
                                             </Dropdown.Toggle>
 
                                             <Dropdown.Menu>
-                                                <Dropdown.Item onClick={()=> alert("Edit")}>Edit</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => handleUpdate(e.id)}>Edit</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => handleDelete(e.id)}>Delete</Dropdown.Item>
-                                                <Dropdown.Item onClick={() => alert("View")}>View</Dropdown.Item>
+                                                <Dropdown.Item onClick={() => handleView(e.id)}>View</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </td>
@@ -140,7 +184,22 @@ const ClientCard1 = () => {
                 </Table>
 
             </div>
-
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalData.Name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <h4>Name: {modalData.Name}</h4>
+                    <h4>Name: {modalData.Lead_Date}</h4>
+                    <h4>Name: {modalData.Number}</h4>
+                    <h4>Name: {modalData.Email}</h4>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
