@@ -52,7 +52,7 @@ const ClientCard1 = () => {
         "Lead_Date": "May 26, 2019",
         "Name": "Shivam Balwani",
         "Number": "+91 987654321",
-        "Email": "default@gmail.com",
+        "Email": "default@gmaillmn.com",
         "Source": "Website",
         "Last_Updated": "25 june 2021",
         "Status": "New"
