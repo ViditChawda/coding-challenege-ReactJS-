@@ -5,9 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 const mySchema: JSONSchema6 = {
-    "required": [
-        "name"
-    ],
+    // "required": [
+    //     "name"
+    // ],
     "properties": {
         "Status": {
             "type": "string",
@@ -25,14 +25,14 @@ const mySchema: JSONSchema6 = {
             "type": "integer",
             "title": "Number"
         },
-        "Notes": {
+        "Email": {
             "type": "string",
-            "title": "Notes"
+            "title": "Email"
         },
     }
 };
 
-const Modals = () => {
+const Modals = (props: any) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -56,7 +56,11 @@ const Modals = () => {
                         Save Changes
                     </Button>
                 </Modal.Footer> */}
-                <div style={{ zIndex:"3" }}><Form schema={mySchema} className="p-5" /></div>
+                <div style={{ zIndex:"3" }}><Form schema={mySchema} className="p-5"
+                onSubmit={(formData) => {
+                    props.handleAdd(formData)
+                    handleClose()
+                }} /></div>
                 
             </Modal>
         </div>

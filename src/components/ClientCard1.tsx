@@ -20,34 +20,78 @@
 
 // export default ClientCard1
 
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button'
 import Modals from './Modals';
 import { BiDotsVerticalRounded } from 'react-icons/bi'
 import DropDown from './DropDown';
 import { Dropdown } from 'react-bootstrap';
+
 // import './index.css';
 
 import DATA from './DATA.js'
 
-const handleDelete = (id) => {
-    var index = DATA.map((e) => {
-        return e.id;
-    }).indexOf(id);
-
-    DATA.splice(index,1); 
-}
-
-
 const ClientCard1 = () => {
+    const [data, setData] = useState<any>(DATA)
+
+    useEffect(() => {
+        const localData = localStorage.userData;
+        if (localData)
+            setData(JSON.parse(localData))
+        else
+            localStorage.userData = JSON.stringify(DATA)
+    }, [])
+
+    const syncData = (passedData) => {
+        localStorage.userData = JSON.stringify(passedData)
+        setData(passedData)
+    }
+    
+    const handleAdd = (clientData: any) => {
+        const newData = [
+            ...data,
+            {
+                ...clientData.formData,
+                Last_Updated: "26 june 2021",
+                Lead_Date: "May 28, 2019",
+                id: Math.floor(Math.random() * 1000000000),
+            },
+        ]
+
+        syncData(newData)
+    }
+
+    const handleEdit = (id: string, editedData: any) => {
+        const newData = data.map(userData => {
+            if (userData.id === id) {
+                return {
+                    ...userData,
+                    ...editedData,
+                }
+            }
+
+            return userData
+        })
+
+        syncData(newData)
+    }
+
+    const handleDelete = (id: string) => {
+        const newData = data.filter(currData => {
+            return currData.id !== id
+        })
+
+        syncData(newData)
+    }
+
     return (
         <div>
             <div className='p-3 mt-0 fs-5 fw-bolder'>
                 Clients
             </div>
             <div className='m-5'>
-                <Modals />
+                <Modals handleAdd={handleAdd} />
             </div>
             <div className='p-5'>
                 <Table striped bordered hover>
@@ -63,7 +107,7 @@ const ClientCard1 = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {DATA.map((e , i) => {
+                        {data.map((e , i) => {
                             return <>
 
                                 <tr>
