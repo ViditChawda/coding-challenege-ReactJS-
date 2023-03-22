@@ -5,25 +5,25 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiOutlinePlusCircle } from 'react-icons/ai'
 import {BsSearch} from 'react-icons/bs'
-import './custom.css'
+
 
 const mySchema: JSONSchema6 = {
-    type: "object",
+   
     // "required": [
     //     "name"
     // ],
-    properties: {
-        selectoption: {
+    "properties": {
+        "Status": {
             "type": "string",
             "title": "Status",
-            enum: ["New", "Old"],
-            default :"New"
+            "enum": ["New", "Old"],
+            "default" :"New"
         },
-        selectoption1 : {
+        "Source" : {
             "type": "string",
             "title": "Source",
-            enum : ["Website", "Application"],
-            default: 'Website'
+            "enum" : ["Website ", "Application"],
+            "default" : 'Website'
         },
         "Name": {
             "type": "string",
@@ -40,13 +40,13 @@ const mySchema: JSONSchema6 = {
     }
 };
 
-const uiSchema = {
-    selectOption: {
-        "ui:widget": "select",
-        "ui:placeholder": "New",
-        "controloptions" : "custom-select"
-    },
-};
+// const uiSchema = {
+//     selectOption: {
+//         "ui:widget": "select",
+//         "ui:placeholder": "New",
+//         "controloptions" : "custom-select"
+//     },
+// };
 
 const Modals = (props: any) => {
     const [show, setShow] = useState(false);
@@ -72,7 +72,7 @@ const Modals = (props: any) => {
                     Lead
                 </div>
                 <div style={{ zIndex: "3" }}>
-                    <Form schema={mySchema} uiSchema={uiSchema} className="p-5"
+                    <Form schema={mySchema}  className="p-5"
                         onSubmit={(formData) => {
                             console.log(formData);
                             props.handleAdd(formData)

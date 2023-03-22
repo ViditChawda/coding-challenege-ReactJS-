@@ -187,13 +187,13 @@ const ClientCard1 = () => {
             </div >
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{modalData.Name}</Modal.Title>
+                    <Modal.Title>Lead's Data</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <h4>Name: {modalData.Name}</h4>
-                    <h4>Name: {modalData.Lead_Date}</h4>
-                    <h4>Name: {modalData.Number}</h4>
-                    <h4>Name: {modalData.Email}</h4>
+                    <h4>Lead Date: {modalData.Lead_Date}</h4>
+                    <h4>Number: {modalData.Number}</h4>
+                    <h4>Email: {modalData.Email}</h4>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
