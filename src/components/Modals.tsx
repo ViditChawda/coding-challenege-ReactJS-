@@ -3,19 +3,27 @@ import Form from 'react-jsonschema-form'
 import { JSONSchema6 } from "json-schema"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { AiOutlinePlusCircle } from 'react-icons/ai'
+import {BsSearch} from 'react-icons/bs'
+import './custom.css'
 
 const mySchema: JSONSchema6 = {
+    type: "object",
     // "required": [
     //     "name"
     // ],
-    "properties": {
-        "Status": {
+    properties: {
+        selectoption: {
             "type": "string",
-            "title": "Status"
+            "title": "Status",
+            enum: ["New", "Old"],
+            default :"New"
         },
-        "Source": {
+        selectoption1 : {
             "type": "string",
-            "title": "Source"
+            "title": "Source",
+            enum : ["Website", "Application"],
+            default: 'Website'
         },
         "Name": {
             "type": "string",
@@ -32,20 +40,39 @@ const mySchema: JSONSchema6 = {
     }
 };
 
+const uiSchema = {
+    selectOption: {
+        "ui:widget": "select",
+        "ui:placeholder": "New",
+        "controloptions" : "custom-select"
+    },
+};
+
 const Modals = (props: any) => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
-        <div className=''>
-            <Button variant="primary" onClick={handleShow}>
-                Add Client
+        <div className='d-flex'>
+
+            <div className='mt-2'>
+                <BsSearch/>
+            </div>
+            <div className=''>
+
+            </div>
+            
+            <Button variant="light" className="fw-bold fs-6" onClick={handleShow}>
+                Add Lead <AiOutlinePlusCircle className='ml-4 mb-1 fw-bold fs-3' />
             </Button>
 
             <Modal show={show} onHide={handleClose}>
+                <div className='p-4 fs-5 fw-bolder bg-dark text-white'>
+                    Lead
+                </div>
                 <div style={{ zIndex: "3" }}>
-                    <Form schema={mySchema} className="p-5"
+                    <Form schema={mySchema} uiSchema={uiSchema} className="p-5"
                         onSubmit={(formData) => {
                             console.log(formData);
                             props.handleAdd(formData)

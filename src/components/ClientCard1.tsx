@@ -21,6 +21,7 @@
 // export default ClientCard1
 
 import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button'
 import Modals from './Modals';
@@ -29,9 +30,9 @@ import { BiDotsVerticalRounded } from 'react-icons/bi'
 import DropDown from './DropDown';
 import { Dropdown } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
-// import './index.css';
-
+import './custom.css'
 import DATA from './DATA.js'
+import Smallnav from './Smallnav';
 
 const ClientCard1 = () => {
 
@@ -133,57 +134,57 @@ const ClientCard1 = () => {
             <div className='p-3 mt-0 fs-5 fw-bolder'>
                 Clients
             </div>
+            <Smallnav/>
             <div className='m-5'>
                 <Modals handleAdd={handleAdd} />
                 <EditModal handleUpdate={updateFields} fieldData={updateModalData} handleClose={handleCloseUpdateModal} show={showUpdateModal} />
             </div>
-            <div className='p-5'>
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Lead Date</th>
-                            <th>Name</th>
-                            <th>Number</th>
-                            <th>Email</th>
-                            <th>Source</th>
-                            <th>Last Update</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <div className='ml-5'>
+                <Container className='my-custom-class'>
+                   
+                        <Row className='my-custom-row'>
+                            <Col className='mt-5 mr-5'>Lead Date</Col>
+                            <Col className='mt-5 mr-5'>Name</Col>
+                            <Col className='mt-5 mr-5 number'>Number</Col>
+                            <Col className='mt-5 mr-5 email'>Email</Col>
+                            <Col className='mt-5 mr-5'>Source</Col>
+                            <Col className='mt-5 mr-5'>Last Update</Col>
+                            <Col className='mt-5 mr-5'>Status</Col>
+                        </Row>
                         {data.map((e, i) => {
                             return <>
 
-                                <tr>
-                                    <td>{e.Lead_Date}</td>
-                                    <td>{e.Name}</td>
-                                    <td>{e.Number}</td>
-                                    <td>{e.Email}</td>
-                                    <td>{e.Source}</td>
-                                    <td>{e.Last_Updated}</td>
-                                    <td>{e.Status}</td>
-                                    <td>
-                                        <Dropdown>
-                                            <Dropdown.Toggle>
+                                <Row className='my-custom-inner-row mt-2'>
+
+                                    <Col className='p-3'>{e.Lead_Date}</Col>
+                                    <Col className='p-3'>{e.Name}</Col>
+                                    <Col className='p-3'>{e.Number}</Col>
+                                    <Col className='p-3'>{e.Email}</Col>
+                                    <Col className='p-3'>{e.Source}</Col>
+                                    <Col className='p-3'>{e.Last_Updated}</Col>
+                                    <Col className='p-3'>{e.Status}</Col>
+                                    <Col className='p-3'>
+                                        <Dropdown bsPrefix="">
+                                            <Dropdown.Toggle  variant='light' className='dropdown'>
                                                 <BiDotsVerticalRounded />
                                             </Dropdown.Toggle>
 
-                                            <Dropdown.Menu>
+                                            <Dropdown.Menu >
                                                 <Dropdown.Item onClick={() => handleUpdate(e.id)}>Edit</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => handleDelete(e.id)}>Delete</Dropdown.Item>
                                                 <Dropdown.Item onClick={() => handleView(e.id)}>View</Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
-                                    </td>
-                                </tr>
+                                    </Col>
+                                </Row>
+
+
 
                             </>
                         })}
-                    </tbody>
+                </Container>
 
-                </Table>
-
-            </div>
+            </div >
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{modalData.Name}</Modal.Title>
@@ -200,7 +201,7 @@ const ClientCard1 = () => {
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </div >
     )
 }
 
