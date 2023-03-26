@@ -9,11 +9,13 @@ const mySchema: JSONSchema6 = {
   "properties": {
     "Status": {
       "type": "string",
-      "title": "Status"
+      "title": "Status",
+      "enum": ["New", "Old"]
     },
     "Source": {
       "type": "string",
-      "title": "Source"
+      "title": "Source",
+      "enum" : ["Website ", "Application"],
     },
     "Name": {
       "type": "string",

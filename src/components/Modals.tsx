@@ -4,11 +4,11 @@ import { JSONSchema6 } from "json-schema"
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { AiOutlinePlusCircle } from 'react-icons/ai'
-import {BsSearch} from 'react-icons/bs'
+import { BsSearch } from 'react-icons/bs'
 
 
 const mySchema: JSONSchema6 = {
-   
+
     // "required": [
     //     "name"
     // ],
@@ -17,13 +17,13 @@ const mySchema: JSONSchema6 = {
             "type": "string",
             "title": "Status",
             "enum": ["New", "Old"],
-            "default" :"New"
+            "default": "New"
         },
-        "Source" : {
+        "Source": {
             "type": "string",
             "title": "Source",
-            "enum" : ["Website ", "Application"],
-            "default" : 'Website'
+            "enum": ["Website ", "Application"],
+            "default": 'Website'
         },
         "Name": {
             "type": "string",
@@ -40,13 +40,13 @@ const mySchema: JSONSchema6 = {
     }
 };
 
-// const uiSchema = {
-//     selectOption: {
-//         "ui:widget": "select",
-//         "ui:placeholder": "New",
-//         "controloptions" : "custom-select"
-//     },
-// };
+const uiSchema = {
+    selectOption: {
+        "ui:widget": "select",
+        "ui:placeholder": "New",
+        "controloptions": "custom-select"
+    },
+};
 
 const Modals = (props: any) => {
     const [show, setShow] = useState(false);
@@ -54,15 +54,12 @@ const Modals = (props: any) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     return (
-        <div className='d-flex'>
+        <div className='d-flex justify-content-between'>
 
-            <div className='mt-2'>
-                <BsSearch/>
+            <div className='mt-1 ml-5'>
+            <BsSearch /> <input className='rounded' type="text" placeholder="Search.." />
             </div>
-            <div className=''>
 
-            </div>
-            
             <Button variant="light" className="fw-bold fs-6" onClick={handleShow}>
                 Add Lead <AiOutlinePlusCircle className='ml-4 mb-1 fw-bold fs-3' />
             </Button>
@@ -72,7 +69,7 @@ const Modals = (props: any) => {
                     Lead
                 </div>
                 <div style={{ zIndex: "3" }}>
-                    <Form schema={mySchema}  className="p-5"
+                    <Form schema={mySchema} className="p-5"
                         onSubmit={(formData) => {
                             console.log(formData);
                             props.handleAdd(formData)
